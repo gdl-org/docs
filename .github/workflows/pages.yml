@@ -27,6 +27,10 @@ jobs:
     - name: Install Docutils
       run: pip install docutils pygments
 
+    - name: Update Links
+      working-directory: ./docs/
+      run: sed --in-place 's/\.\(rst\|md\)\b/.html/g' -- *.md  *.rst
+
     - name: reStructuredText to HTML
       working-directory: ./docs/
       run: |
