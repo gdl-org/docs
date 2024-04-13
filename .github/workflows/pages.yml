@@ -40,7 +40,9 @@ jobs:
       run: |
         while read -r RST
         do
-          python -m docutils --writer=html --output="${RST%.rst}.html" -- "$RST"
+          HTML="${RST%.rst}.html"
+          python -m docutils --writer=html5 --output="$HTML" -- "$RST"
+          sed --in-place '/<\/head>/i <script src="links.js"></script>' -- "$HTML"
         done < <(find . -type f -name "*.rst")
 
     - uses: actions/jekyll-build-pages@v1
